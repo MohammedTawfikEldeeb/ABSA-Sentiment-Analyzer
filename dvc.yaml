@@ -1,0 +1,15 @@
+stages:
+  scrape_reviews:
+    cmd: python -m src.data.scrape_data data/raw/instapay_reviews.csv
+    deps:
+    - src/data/scrape_data.py
+    - src/config.py 
+    outs:
+    - data/raw/instapay_reviews.csv
+  prepare_training_data:
+    cmd: python -m src.data.prepare_training_data data/processed/llm_labeled_reviews.csv data/processed/training_data.csv
+    deps:
+    - data/processed/llm_labeled_reviews.csv
+    - src/data/prepare_training_data.py
+    outs:
+    - data/processed/training_data.csv

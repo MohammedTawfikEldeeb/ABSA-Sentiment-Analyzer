@@ -1,0 +1,35 @@
+schema: '2.0'
+stages:
+  scrape_reviews:
+    cmd: python -m src.data.scrape_data data/raw/instapay_reviews.csv
+    deps:
+    - path: src/config.py
+      hash: md5
+      md5: b11fe8f0680a13735f0ee35f316eaa4f
+      size: 287
+    - path: src/data/scrape_data.py
+      hash: md5
+      md5: 9eff9bd85550edb540cee52378edf57a
+      size: 990
+    outs:
+    - path: data/raw/instapay_reviews.csv
+      hash: md5
+      md5: f249a70c1742a2a30cdfd59a41cb7243
+      size: 2185915
+  prepare_training_data:
+    cmd: python -m src.data.prepare_training_data data/processed/llm_labeled_reviews.csv
+      data/processed/training_data.csv
+    deps:
+    - path: data/processed/llm_labeled_reviews.csv
+      hash: md5
+      md5: 7b3dacade9d95d87c9349770cb437571
+      size: 184785
+    - path: src/data/prepare_training_data.py
+      hash: md5
+      md5: 1bc1ff3c5d95e4c8fa1f318847e97ed7
+      size: 1319
+    outs:
+    - path: data/processed/training_data.csv
+      hash: md5
+      md5: c62fd919112d4900a9615435f5af5daa
+      size: 128247
